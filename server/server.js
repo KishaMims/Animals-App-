@@ -15,31 +15,66 @@ app.get('/', (req, res) => {
 });
 
 //create the get request
-app.get('/api/students', cors(), async (req, res) => {
-    // const STUDENTS = [
+// app.get('/api/animals', cors(), async (req, res) => {
+//     // const species = [
+   
 
-    //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
-    //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
-    //     { id: 3, firstName: 'Fariba', lastName: 'Dako' },
-    //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
-    //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
+
+//     // //     { id: 4, coomonname: 'elephant, numberinthewild: 'Lee' },
+//     // //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
+//     // //     { id: 3, firstName: 'Fariba', lastName: 'Dako' },
+//     // //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
+//     // //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
+//     // ];
+//     // res.json(species);
+
+
+// //     try {
+// //         const { rows: sightings} = await db.query('SELECT * FROM sightings');
+// //         res.send(sightings);
+// //     } catch (e){
+// //         return res.status(400).json({e});
+// //     }
+// // });
+//     try {
+//         const { rows: species} = await db.query('SELECT * FROM species');
+//         res.send(species);
+//     } catch (e){
+//         return res.status(400).json({e});
+//     }
+// });
+
+
+
+app.get('/api/sightings', cors(), async (req, res) => {
+    // const species = [
+   
+
+
+    // //     { id: 4, coomonname: 'elephant, numberinthewild: 'Lee' },
+    // //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
+    // //     { id: 3, firstName: 'Fariba', lastName: 'Dako' },
+    // //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
+    // //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
     // ];
-    // res.json(STUDENTS);
-    try{
-        const { rows: students } = await db.query('SELECT * FROM students');
-        res.send(students);
+    // res.json(species);
+    try {
+        const { rows: sightings} = await db.query('SELECT * FROM sightings');
+        res.send(sightings);
     } catch (e){
         return res.status(400).json({e});
     }
 });
 
+
 //create the POST request
-app.post('/api/students', cors(), async (req, res) => {
-    const newUser = { firstname: req.body.firstname, lastname: req.body.lastname }
-    console.log([newUser.firstname, newUser.lastname]);
+app.post('/api/sightings', cors(), async (req, res) => {
+    const newAnimal = { dateseen: req.body.dateseen, email:req.body.email, timeseen: req.body.timeseen, locationseen: req.body.locationseen, healthy: req.body.healthy}
+    //console.log([newUser.firstname, newUser.lastname]);
+    console.log(req.body);
     const result = await db.query(
-        'INSERT INTO students(firstname, lastname) VALUES($1, $2) RETURNING *',
-        [newUser.firstname, newUser.lastname]
+        'INSERT INTO sightings(dateseen, email, timeseen, locationseen, healthy, indiviualid) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+        [newAnimal.dateseen, newAnimal.email, newAnimal.timeseen, newAnimal.locationseen, newAnimal.healthy]
     );
     console.log(result.rows[0]);
     res.json(result.rows[0]);
