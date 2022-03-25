@@ -4,7 +4,7 @@ import Animals from './components/animals';
 function App() {
   return (
     <div className="App">
-      Hello from Techtonica
+      🐍 🐯 🦁 🐒 Endagerd Animals App 🐻 🐸 🐺 🦎
       <Animals />
     </div>
   );

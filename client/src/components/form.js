@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Form = (props) => {
     const [animals, setAnimals] = useState({
@@ -9,14 +9,19 @@ const Form = (props) => {
         healthy: "",
         email: ""
     });
+
+    const [ids, setIds] = useState([]);
+
     const health = ["Yes", "No"];
 
-    //create functions that handle the event of the user typing into the form
-    // const handleNameChange = (event) => {
-    //     const speciesname = event.target.value;
-    //     setAnimals((animals) => ({ ...animals, speciesname }));
+    useEffect(() => {
+        fetch('http://localhost:5000/api/sightings')
+          .then((response) => response.json())
+          .then((ids) => {
+            setIds(ids);
+          });
+      }, []);
 
-    // }
 
     const handlelocationChange = (event) => {
         const locationseen = event.target.value;
@@ -133,14 +138,21 @@ const Form = (props) => {
                     onChange={handletimeChange}
                 />
                 <label>Indiviual ID</label>
-                <input
+                {/* <input
                     type="number"
                     id="add-species-id"
                     placeholder="Enter ID"
                     required
                     value={animals.id}
                     onChange={handleidChange}
-                />
+                /> */}
+                <select required value={animals.id} onChange={handleidChange}>
+                <option value="">Select Indiviual's ID</option>
+                {ids.map((id) => (
+                        <option key={id.id}>{id.id}
+                        </option>
+                    ))}
+                </select>
                 <label>Health of Animal</label>
                 <select required value={animals.healthy} onChange={handlehealthyChange}>
                     <option value="">Is the animal healthy?</option>

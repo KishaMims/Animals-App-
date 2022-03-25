@@ -52,6 +52,10 @@ const [sightings, setSightings] = useState([]);
     //     //postStudent(newStudent);
     //     setAnimals((animals) => [...animals, newAnimal]);
     // }
+    //
+    // {sightings.map((sighting, index) =>
+    //     <li key={index}> {sighting.id} {sighting.dateseen} {sighting.locationseen} {sighting.healthy} {sighting.nickname} </li>)}
+    //x{formatDate(post.createdAt)}
 
     const addAnimal = (newsSighting) => {
         //console.log(newStudent);
@@ -60,10 +64,10 @@ const [sightings, setSightings] = useState([]);
     }
     return (
       <div className="animals">
-        <h2> List of Sightings</h2>
+        <h2>List of Sightings</h2>
         <ul>
             {sightings.map((sighting, index) =>
-                <li key={index}> {sighting.id} {sighting.dateseen} {sighting.locationseen} {sighting.healthy}</li>)}
+                <li key={index}> {sighting.id} {sighting.nickname} {sighting.locationseen} {sighting.healthy} </li>)}
         </ul>
         <Form addAnimal={addAnimal} />
         <div>
